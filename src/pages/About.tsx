@@ -28,28 +28,10 @@ const achievements = [
 
 const team = [
   {
-    name: 'Vikram Singh',
+    name: 'V SREMADUKRISHNA',
     role: 'Founder & CEO',
     bio: 'Visionary leader with 15+ years in cybersecurity. Former security architect at major tech firms. Passionate about making enterprise-grade security accessible to all businesses.',
     isCEO: true,
-  },
-  {
-    name: 'Dr. Priya Sharma',
-    role: 'Chief Technology Officer',
-    bio: 'PhD in AI/ML from IIT. Leading our AI research and development initiatives.',
-    isCEO: false,
-  },
-  {
-    name: 'Rahul Mehta',
-    role: 'Head of Security',
-    bio: 'Certified ethical hacker with expertise in penetration testing and threat analysis.',
-    isCEO: false,
-  },
-  {
-    name: 'Ananya Patel',
-    role: 'VP of Engineering',
-    bio: 'Building scalable security solutions with a team of world-class engineers.',
-    isCEO: false,
   },
 ];
 
@@ -91,7 +73,7 @@ const About: React.FC = () => {
               <h2 className="text-3xl font-bold text-foreground mb-6">Our Story</h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  Founded in 2018, VSMK SOLTECH LTD emerged from a simple yet powerful vision: 
+                  Founded in 2025, VSMK SOLTECH LTD emerged from a simple yet powerful vision: 
                   to make enterprise-grade cybersecurity accessible to businesses of all sizes.
                 </p>
                 <p>
@@ -113,7 +95,7 @@ const About: React.FC = () => {
               className="grid grid-cols-2 gap-6"
             >
               <div className="bg-accent/10 rounded-2xl p-6 text-center">
-                <div className="text-4xl font-bold text-accent mb-2">2018</div>
+                <div className="text-4xl font-bold text-accent mb-2">2025</div>
                 <div className="text-sm text-muted-foreground">Founded</div>
               </div>
               <div className="bg-accent/10 rounded-2xl p-6 text-center">
@@ -254,13 +236,13 @@ const About: React.FC = () => {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl font-bold text-foreground mb-4">Leadership Team</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-4">Leadership</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Meet the visionaries driving our mission forward
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="flex justify-center">
             {team.map((member, index) => (
               <motion.div
                 key={member.name}
@@ -268,19 +250,17 @@ const About: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className={`rounded-2xl overflow-hidden ${
-                  member.isCEO ? 'lg:col-span-2 lg:row-span-2' : ''
-                }`}
+                className="rounded-2xl overflow-hidden max-w-sm"
               >
-                <div className={`bg-gradient-to-br from-accent/20 to-accent/5 ${member.isCEO ? 'p-8' : 'p-6'}`}>
-                  <div className={`bg-secondary rounded-2xl ${member.isCEO ? 'h-64' : 'h-48'} mb-4 flex items-center justify-center`}>
-                    <Users className={`${member.isCEO ? 'h-24 w-24' : 'h-16 w-16'} text-muted-foreground/30`} />
+                <div className="bg-gradient-to-br from-accent/20 to-accent/5 p-8">
+                  <div className="bg-secondary rounded-2xl h-64 mb-4 flex items-center justify-center">
+                    <img src="/founder.jpeg" alt="Founder" className="w-full h-full object-cover" />
                   </div>
-                  <h3 className={`font-bold text-foreground ${member.isCEO ? 'text-2xl' : 'text-lg'} mb-1`}>
+                  <h3 className="font-bold text-foreground text-2xl mb-1">
                     {member.name}
                   </h3>
                   <p className="text-accent font-medium text-sm mb-3">{member.role}</p>
-                  <p className={`text-muted-foreground ${member.isCEO ? 'text-base' : 'text-sm'}`}>
+                  <p className="text-muted-foreground text-base">
                     {member.bio}
                   </p>
                   {member.isCEO && (
@@ -302,3 +282,4 @@ const About: React.FC = () => {
 };
 
 export default About;
+

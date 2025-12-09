@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Trash2, Plus, Minus, ShoppingBag, ArrowRight, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -15,6 +15,13 @@ const Cart: React.FC = () => {
       currency: 'INR',
       maximumFractionDigits: 0,
     }).format(price);
+  };
+
+  const navigate = useNavigate();
+
+  const handlePayment = () => {
+    // For demo purposes, redirect to a placeholder Razorpay page
+    window.location.href = 'https://razorpay.com/sample/'; 
   };
 
   if (items.length === 0) {
@@ -165,12 +172,10 @@ const Cart: React.FC = () => {
                       <span className="text-accent">{formatPrice(totalPrice * 1.18)}</span>
                     </div>
                   </div>
-
-                  <Button variant="accent" size="lg" className="w-full mb-4">
+                  <Button variant="accent" size="lg" className="w-full mb-4" onClick={handlePayment}>
                     <CreditCard className="mr-2 h-5 w-5" />
                     Proceed to Checkout
                   </Button>
-
                   <p className="text-xs text-muted-foreground text-center">
                     Secure payment powered by Stripe/Razorpay
                   </p>

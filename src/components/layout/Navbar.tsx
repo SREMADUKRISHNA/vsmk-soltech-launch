@@ -13,6 +13,7 @@ const navLinks = [
   { name: 'Products', path: '/products' },
   { name: 'VSMK SOL', path: '/ai-assistant' },
   { name: 'Contact', path: '/contact' },
+  { name: 'Login', path: '/login' },
 ];
 
 const Navbar: React.FC = () => {

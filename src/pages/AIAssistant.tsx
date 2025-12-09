@@ -1,9 +1,11 @@
+import Antigravity from '@/components/ui/Antigravity';
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Send, Bot, User, Sparkles, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Layout from '@/components/layout/Layout';
+
 
 interface Message {
   id: string;
@@ -56,6 +58,26 @@ const AIAssistant: React.FC = () => {
       return 'Hello! Welcome to VSMK SOLTECH. I\'m here to assist you with any questions about our cybersecurity and AI solutions. What would you like to know?';
     }
     
+    if (lowerMessage.includes('phishing')) {
+      return 'A phishing attack is a cybercrime where attackers impersonate trusted entities (like banks, companies, or friends) through fake emails, texts (smishing), or messages to trick victims into revealing sensitive data like passwords, credit card numbers, or bank details, using social engineering to exploit human emotions like fear or urgency to get them to click malicious links or open infected attachments.';
+    }
+
+    if (lowerMessage.includes('ddos')) {
+      return 'A DDoS (Distributed Denial of Service) attack overwhelms a website, server, or network with a massive flood of malicious internet traffic from multiple compromised devices (a botnet) to disrupt its normal operations, making it slow or completely unavailable to legitimate users, akin to a traffic jam caused by fake requests.';
+    }
+
+    if (lowerMessage.includes('zero day vulnerability')) {
+      return 'A Zero-Day Vulnerability is a software weakness that is unknown to the vendor or the public, meaning there are literally zero days for the defenders to prepare or issue a patch before it is exploited by attackers. These vulnerabilities are highly dangerous because they leave systems completely exposed, as no security patches or signatures exist to detect or block the resulting attacks. Once an attacker discovers and successfully exploits a zero-day flaw, they can gain unauthorized access, steal data, or deploy malware without setting off any existing alarms or defenses. The term also refers to the Zero-Day Exploit, which is the actual malicious code used to take advantage of the vulnerability before the fix is available.';
+    }
+
+    if (lowerMessage.includes('brute force attack')) {
+      return 'A Brute Force Attack is a trial-and-error method used by attackers to decode encrypted data, such as passwords or login credentials, by systematically checking every possible combination until the correct one is found. While theoretically simple, this process can be extremely time-consuming, so attackers employ specialized methods to increase efficiency. One common method is using dictionaries of the most frequently used passwords, which dramatically reduces the search space. More sophisticated attacks utilize credential stuffing, where they take already compromised username and password pairs from one breach and try them on numerous other websites, betting on users reusing passwords. Attackers often deploy powerful, multi-threaded software and botnets to automate the process, allowing them to attempt millions or billions of combinations per second, overcoming basic rate-limiting security controls.';
+    }
+
+    if (lowerMessage.includes('cryptojacking')) {
+      return 'Cryptojacking is the unauthorized use of someone else\'s computer to illegally mine cryptocurrency. Unlike ransomware, which announces its presence by locking files, cryptojacking is designed to be stealthy, operating in the background without the victim\'s knowledge. Attackers often execute this by tricking users into clicking a malicious link in an email that loads crypto-mining code onto the computer, or by injecting a script into a website or online advertisement. The primary significance of cryptojacking in the threat landscape is not data theft but the theft of resources; the victim\'s CPU power and electricity are consumed by the mining process, leading to slow performance, overheating, and increased energy bills, essentially turning the victim\'s device into a hidden revenue stream for the attacker.';
+    }
+    
     return 'Thank you for your question. While I\'m a demo AI assistant, our full-featured VSMK SOL AI will be able to provide detailed answers to all your security queries. In the meantime, feel free to explore our services page or contact our team for specific inquiries.';
   };
 
@@ -87,17 +109,60 @@ const AIAssistant: React.FC = () => {
     }, 1500);
   };
 
+  const handleSuggestedQuestionClick = (question: string, answer: string) => {
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      role: 'user',
+      content: question,
+      timestamp: new Date(),
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+    setIsTyping(true);
+
+    setTimeout(() => {
+      const assistantMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: answer,
+        timestamp: new Date(),
+      };
+      setMessages(prev => [...prev, assistantMessage]);
+      setIsTyping(false);
+    }, 1500);
+  };
+
   const suggestedQuestions = [
-    'What services do you offer?',
-    'Tell me about your security products',
-    'How can I contact support?',
-    'What makes your security unique?',
+    {
+      question: 'What is a DDoS attack?',
+      answer: 'A DDoS (Distributed Denial of Service) attack overwhelms a website, server, or network with a massive flood of malicious internet traffic from multiple compromised devices (a botnet) to disrupt its normal operations, making it slow or completely unavailable to legitimate users, akin to a traffic jam caused by fake requests.',
+    },
+    {
+      question: 'What is a phishing attack?',
+      answer: 'A phishing attack is a cybercrime where attackers impersonate trusted entities (like banks, companies, or friends) through fake emails, texts (smishing), or messages to trick victims into revealing sensitive data like passwords, credit card numbers, or bank details, using social engineering to exploit human emotions like fear or urgency to get them to click malicious links or open infected attachments.',
+    },
+    {
+      question: 'What is a Zero-Day Vulnerability?',
+      answer: 'A Zero-Day Vulnerability is a software weakness that is unknown to the vendor or the public, meaning there are literally zero days for the defenders to prepare or issue a patch before it is exploited by attackers. These vulnerabilities are highly dangerous because they leave systems completely exposed, as no security patches or signatures exist to detect or block the resulting attacks. Once an attacker discovers and successfully exploits a zero-day flaw, they can gain unauthorized access, steal data, or deploy malware without setting off any existing alarms or defenses. The term also refers to the Zero-Day Exploit, which is the actual malicious code used to take advantage of the vulnerability before the fix is available.',
+    },
+    {
+      question: 'What is a Brute Force Attack?',
+      answer: 'A Brute Force Attack is a trial-and-error method used by attackers to decode encrypted data, such as passwords or login credentials, by systematically checking every possible combination until the correct one is found. While theoretically simple, this process can be extremely time-consuming, so attackers employ specialized methods to increase efficiency. One common method is using dictionaries of the most frequently used passwords, which dramatically reduces the search space. More sophisticated attacks utilize credential stuffing, where they take already compromised username and password pairs from one breach and try them on numerous other websites, betting on users reusing passwords. Attackers often deploy powerful, multi-threaded software and botnets to automate the process, allowing them to attempt millions or billions of combinations per second, overcoming basic rate-limiting security controls.',
+    },
+    {
+      question: 'What is Cryptojacking?',
+      answer: 'Cryptojacking is the unauthorized use of someone else\'s computer to illegally mine cryptocurrency. Unlike ransomware, which announces its presence by locking files, cryptojacking is designed to be stealthy, operating in the background without the victim\'s knowledge. Attackers often execute this by tricking users into clicking a malicious link in an email that loads crypto-mining code onto the computer, or by injecting a script into a website or online advertisement. The primary significance of cryptojacking in the threat landscape is not data theft but the theft of resources; the victim\'s CPU power and electricity are consumed by the mining process, leading to slow performance, overheating, and increased energy bills, essentially turning the victim\'s device into a hidden revenue stream for the attacker.',
+    },
   ];
 
   return (
     <Layout>
-      <section className="section-padding min-h-[calc(100vh-5rem)]">
-        <div className="container-custom mx-auto h-full">
+      <section className="relative section-padding min-h-[calc(100vh-5rem)]">
+        <div className="absolute top-0 left-0 w-full h-full z-[-1]">
+          <Antigravity type="ai" />
+        </div>
+        
+        <div className="container-custom mx-auto h-full relative z-10">
           <div className="max-w-4xl mx-auto h-full flex flex-col">
             {/* Header */}
             <motion.div
@@ -110,11 +175,11 @@ const AIAssistant: React.FC = () => {
                   <Bot className="h-8 w-8 text-accent" />
                 </div>
                 <div className="text-left">
-                  <h1 className="text-2xl font-bold text-foreground">VSMK SOL</h1>
-                  <p className="text-sm text-muted-foreground">AI Security Assistant</p>
+                  <h1 className="text-2xl font-bold text-white">VSMK SOL</h1>
+                  <p className="text-sm text-white font-bold">AI Security Assistant</p>
                 </div>
               </div>
-              <p className="text-muted-foreground">
+              <p className="text-white font-bold">
                 Ask me anything about cybersecurity, our products, or services.
               </p>
             </motion.div>
@@ -137,18 +202,18 @@ const AIAssistant: React.FC = () => {
                       {message.role === 'assistant' ? (
                         <Bot className="h-5 w-5 text-accent" />
                       ) : (
-                        <User className="h-5 w-5 text-muted-foreground" />
+                        <User className="h-5 w-5 text-white" />
                       )}
                     </div>
                     <div className={`max-w-[80%] ${message.role === 'user' ? 'text-right' : ''}`}>
                       <div className={`rounded-2xl px-4 py-3 ${
                         message.role === 'assistant' 
-                          ? 'bg-secondary text-foreground' 
-                          : 'bg-accent text-accent-foreground'
+                          ? 'bg-navy-light text-white font-bold' 
+                          : 'bg-accent text-accent-foreground font-bold'
                       }`}>
                         <p className="text-sm whitespace-pre-line">{message.content}</p>
                       </div>
-                      <span className="text-xs text-muted-foreground mt-1 block">
+                      <span className="text-xs text-white font-bold mt-1 block">
                         {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </span>
                     </div>
@@ -166,9 +231,9 @@ const AIAssistant: React.FC = () => {
                     </div>
                     <div className="bg-secondary rounded-2xl px-4 py-3">
                       <div className="flex gap-1">
-                        <span className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                        <span className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                        <span className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                        <span className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                        <span className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                        <span className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                       </div>
                     </div>
                   </motion.div>
@@ -180,13 +245,13 @@ const AIAssistant: React.FC = () => {
               {/* Suggested Questions */}
               {messages.length <= 2 && (
                 <div className="px-6 pb-4">
-                  <p className="text-xs text-muted-foreground mb-2">Suggested questions:</p>
+                  <p className="text-xs text-white font-bold mb-2">Suggested questions:</p>
                   <div className="flex flex-wrap gap-2">
-                    {suggestedQuestions.map(question => (
+                    {suggestedQuestions.map(({ question, answer }) => (
                       <button
                         key={question}
-                        onClick={() => setInput(question)}
-                        className="text-xs bg-secondary hover:bg-accent/10 text-foreground px-3 py-1.5 rounded-full transition-colors"
+                        onClick={() => handleSuggestedQuestionClick(question, answer)}
+                        className="text-xs bg-navy-light hover:bg-accent/10 text-white font-bold px-3 py-1.5 rounded-full transition-colors"
                       >
                         {question}
                       </button>
@@ -202,7 +267,7 @@ const AIAssistant: React.FC = () => {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Type your message..."
-                    className="flex-1 h-12"
+                    className="flex-1 h-12 bg-navy-light text-white"
                     disabled={isTyping}
                   />
                   <Button 
@@ -220,8 +285,8 @@ const AIAssistant: React.FC = () => {
             {/* Footer */}
             <div className="text-center mt-4 flex items-center justify-center gap-2">
               <Shield className="h-4 w-4 text-accent" />
-              <p className="text-sm text-muted-foreground">
-                Powered by <span className="font-semibold text-foreground">VSMK SOLTECH LTD</span>
+              <p className="text-sm text-white font-bold">
+                Powered by <span className="font-semibold text-white">VSMK SOLTECH LTD</span>
               </p>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ShoppingCart, Shield, Zap, Search, Lock } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart, Product } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
@@ -12,57 +12,44 @@ const products: Product[] = [
     name: 'AI Security Suite',
     description: 'Complete AI-powered security solution with real-time threat detection, automated response, and comprehensive analytics dashboard.',
     price: 4999,
-    image: '/placeholder.svg',
+    image: '/ai security.jpeg',
   },
   {
     id: 'phishing-detection',
     name: 'Phishing Detection Tool',
     description: 'Advanced email and web phishing detection with machine learning algorithms. Protect your team from social engineering attacks.',
     price: 1499,
-    image: '/placeholder.svg',
+    image: '/ai phisishing.jpeg',
   },
   {
     id: 'vulnerability-scanner',
     name: 'Vulnerability Scanner',
     description: 'Automated vulnerability scanning for networks, applications, and cloud infrastructure. Includes detailed remediation reports.',
     price: 3999,
-    image: '/placeholder.svg',
+    image: '/vulnerability.jpeg',
   },
   {
     id: 'device-protection',
     name: 'Device Protection Software',
     description: 'Enterprise endpoint protection with ransomware prevention, data loss prevention, and remote device management capabilities.',
     price: 2499,
-    image: '/placeholder.svg',
+    image: '/softwareprotection.jpeg',
   },
   {
     id: 'cloud-security-pro',
     name: 'Cloud Security Pro',
     description: 'Comprehensive cloud security platform for AWS, Azure, and GCP. Includes CSPM, workload protection, and compliance monitoring.',
     price: 5999,
-    image: '/placeholder.svg',
+    image: '/cloud.jpeg',
   },
   {
     id: 'network-monitor',
     name: 'Network Monitor',
     description: 'Real-time network traffic analysis and intrusion detection system. Identify anomalies and threats before they cause damage.',
     price: 3499,
-    image: '/placeholder.svg',
+    image: '/network.jpeg',
   },
 ];
-
-const getProductIcon = (productId: string) => {
-  switch (productId) {
-    case 'ai-security-suite':
-      return Shield;
-    case 'phishing-detection':
-      return Zap;
-    case 'vulnerability-scanner':
-      return Search;
-    default:
-      return Lock;
-  }
-};
 
 const Products: React.FC = () => {
   const { addToCart } = useCart();
@@ -113,7 +100,6 @@ const Products: React.FC = () => {
         <div className="container-custom mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((product, index) => {
-              const IconComponent = getProductIcon(product.id);
               return (
                 <motion.div
                   key={product.id}
@@ -125,9 +111,11 @@ const Products: React.FC = () => {
                 >
                   {/* Product Image */}
                   <div className="h-48 bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center">
-                    <div className="w-20 h-20 bg-accent/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <IconComponent className="h-10 w-10 text-accent" />
-                    </div>
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
 
                   {/* Product Details */}

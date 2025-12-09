@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
@@ -16,6 +16,72 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Layout from '@/components/layout/Layout';
+
+const AnimatedWords: React.FC = () => {
+  const words1 = "Nothing Cannot Be Prevented".split(" ");
+  const words2 = "And Anything Cannot Be Hacked".split(" ");
+  const [isSecondLine, setIsSecondLine] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsSecondLine(prev => !prev);
+    }, 3000); // Change text every 3 seconds
+    return () => clearInterval(interval);
+  }, []);
+
+  const currentWords = isSecondLine ? words2 : words1;
+
+  const container = {
+    hidden: { opacity: 0 },
+    visible: (i = 1) => ({
+      opacity: 1,
+      transition: { staggerChildren: 0.12, delayChildren: 0.04 * i },
+    }),
+  };
+
+  const child = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 100,
+      },
+    },
+    hidden: {
+      opacity: 0,
+      y: 20,
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 100,
+      },
+    },
+  };
+
+  return (
+    <motion.div
+      key={isSecondLine ? 'line2' : 'line1'}
+      variants={container}
+      initial="hidden"
+      animate="visible"
+      className="flex flex-wrap justify-center"
+      style={{ minHeight: '150px' }}
+    >
+      {currentWords.map((word, index) => (
+        <motion.span
+          variants={child}
+          key={index}
+          className={`mr-4 ${isSecondLine ? 'text-accent' : ''}`}
+        >
+          {word}
+        </motion.span>
+      ))}
+    </motion.div>
+  );
+};
+
 
 const highlights = [
   { icon: Shield, title: 'Cybersecurity Protection', description: 'Enterprise-grade security solutions' },
@@ -71,9 +137,7 @@ const Index: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6"
             >
-              Nothing Cannot Be Prevented
-              <br />
-              <span className="text-accent">And Anything Cannot Be Hacked</span>
+              <AnimatedWords />
             </motion.h1>
 
             <motion.p
@@ -147,8 +211,7 @@ const Index: React.FC = () => {
                 key={item.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.2 }}
                 className="bg-card rounded-2xl p-6 text-center card-hover border border-border/50"
               >
                 <div className="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center mx-auto mb-4">
@@ -188,8 +251,7 @@ const Index: React.FC = () => {
                     key={feature.title}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
+                    transition={{ delay: index * 0.2 }}
                     className="flex gap-4 p-4 rounded-xl bg-secondary/50 hover:bg-secondary transition-colors"
                   >
                     <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">

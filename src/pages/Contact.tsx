@@ -50,13 +50,13 @@ const Contact: React.FC = () => {
     {
       icon: Phone,
       title: 'Call Us',
-      content: '+91 98765 43210',
-      link: 'tel:+919876543210',
+      content: '+91 9363870236',
+      link: 'tel:+919363870236',
     },
     {
       icon: MapPin,
       title: 'Visit Us',
-      content: '123 Tech Park, Innovation District, Bangalore, Karnataka 560001',
+      content: '3/785 paraipatti sivaksi east it park',
       link: '#map',
     },
     {
@@ -229,13 +229,17 @@ const Contact: React.FC = () => {
                 ))}
               </div>
 
-              {/* Map Placeholder */}
-              <div id="map" className="bg-secondary rounded-2xl h-64 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="h-12 w-12 text-muted-foreground/30 mx-auto mb-4" />
-                  <p className="text-muted-foreground">Google Maps Integration</p>
-                  <p className="text-sm text-muted-foreground/70">Bangalore, India</p>
-                </div>
+              {/* Map */}
+              <div id="map" className="bg-secondary rounded-2xl h-64 overflow-hidden">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.836894235259!2d78.1585850147934!3d9.98099009284066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b00c5c5e5555555%3A0x5e5d5e5d5e5d5e5d!2sIT%20Park%20Madurai!5e0!3m2!1sen!2sin!4v1678886400000!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
               </div>
 
               {/* Support Info */}
