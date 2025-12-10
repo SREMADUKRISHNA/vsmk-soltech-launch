@@ -34,7 +34,7 @@ router.post('/login', async (req, res) => {
 
     try {
         // Hardcoded admin credentials for demonstration purposes
-        if (email === 'admin@example.com' && password === 'password123') {
+        if (email === 'vsmk@soltech.org' && password === '123456') {
             const user = {
                 id: 'hardcodedAdminId', // A placeholder ID
                 email: 'admin@example.com',
