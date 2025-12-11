@@ -70,7 +70,7 @@ const StudentDashboard: React.FC = () => {
           },
         });
         const data = await response.json();
-        setSubmissions(data);
+        setSubmissions(data.submissions || []);
       } catch (error) {
         console.error('Failed to fetch submissions', error);
       }

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
+const connectDB = require('../config/db.cjs');
 
 const instance = new Razorpay({
     key_id: process.env.RAZORPAY_API_KEY,
@@ -31,7 +32,13 @@ router.post('/paymentverification', async (req, res) => {
     const isAuthentic = expectedSignature === razorpay_signature;
 
     if (isAuthentic) {
-        // Database logic here
+        const db = await connectDB();
+        await db.collection('payments').insertOne({
+            razorpay_order_id,
+            razorpay_payment_id,
+            razorpay_signature,
+            date: new Date(),
+        });
         res.redirect(`http://localhost:5173/paymentsuccess?reference=${razorpay_payment_id}`);
     } else {
         res.status(400).json({
